@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Análise de Preços de Combustíveis no Brasil</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f5f5f0; color: #1a1a1a; }
+
+    .hero { background: #ffffff; border-bottom: 0.5px solid #e0e0d8; padding: 3rem 2rem 2.5rem; text-align: center; }
+    .hero-subtitle { font-size: 13px; color: #888; margin-bottom: 0.5rem; }
+    .hero h1 { font-size: 28px; font-weight: 500; margin-bottom: 0.75rem; }
+    .hero p { font-size: 15px; color: #555; max-width: 620px; margin: 0 auto; line-height: 1.7; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 1.25rem; }
+    .badge { font-size: 12px; padding: 4px 12px; border-radius: 99px; border: 0.5px solid #d0d0c8; color: #555; background: #f5f5f0; }
+
+    .btn-streamlit {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 1.5rem; padding: 10px 24px;
+      background: #ff4b4b; color: #fff; font-size: 15px; font-weight: 500;
+      border-radius: 8px; text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-streamlit:hover { background: #e03c3c; }
+
+    .section { max-width: 780px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+    .section-title { font-size: 18px; font-weight: 500; margin-bottom: 1.25rem; padding-bottom: 0.5rem; border-bottom: 0.5px solid #e0e0d8; }
+
+    .card { background: #ffffff; border: 0.5px solid #e0e0d8; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 2rem; }
+    .kpi { background: #f5f5f0; border-radius: 8px; padding: 1rem; }
+    .kpi-icon { font-size: 20px; color: #888; margin-bottom: 6px; }
+    .kpi-label { font-size: 12px; color: #888; margin-bottom: 4px; }
+    .kpi-value { font-size: 20px; font-weight: 500; }
+
+    .perguntas { list-style: none; }
+    .perguntas li { font-size: 15px; color: #555; margin-bottom: 10px; padding-left: 1.25rem; position: relative; line-height: 1.6; }
+    .perguntas li::before { content: "—"; position: absolute; left: 0; color: #aaa; }
+
+    .viz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .viz-card { background: #ffffff; border: 0.5px solid #e0e0d8; border-radius: 8px; padding: 1rem 1.25rem; display: flex; align-items: flex-start; gap: 12px; }
+    .viz-icon { font-size: 20px; color: #888; margin-top: 2px; flex-shrink: 0; }
+    .viz-title { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+    .viz-desc { font-size: 13px; color: #777; line-height: 1.5; }
+
+    .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+    .tech-item { background: #f5f5f0; border-radius: 8px; padding: 0.875rem 1rem; text-align: center; }
+    .tech-name { font-size: 14px; font-weight: 500; margin-top: 6px; }
+    .tech-desc { font-size: 12px; color: #888; margin-top: 2px; }
+
+    .links-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 0.75rem; }
+    .link-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; padding: 8px 16px; border-radius: 8px; border: 0.5px solid #d0d0c8; background: #fff; color: #1a1a1a; text-decoration: none; }
+    .link-btn:hover { background: #f5f5f0; }
+
+    .footer { text-align: center; padding: 2rem; font-size: 13px; color: #aaa; border-top: 0.5px solid #e0e0d8; margin-top: 1rem; }
+
+    @media (max-width: 520px) {
+      .viz-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-subtitle">Projeto G2 — Tema 11 | Linguagem de Programação | Sistemas de Informação</p>
+  <h1>🛢️ Análise de Preços de Combustíveis no Brasil</h1>
+  <p>Projeto de análise e visualização de dados com Python, Pandas, Matplotlib, Seaborn e Plotly — investigando a evolução dos preços entre 2015 e 2024.</p>
+
+  <div class="badge-row">
+    <span class="badge">Python</span>
+    <span class="badge">Pandas</span>
+    <span class="badge">Matplotlib</span>
+    <span class="badge">Seaborn</span>
+    <span class="badge">Plotly</span>
+    <span class="badge">GitHub Pages</span>
+  </div>
+
+  <br />
+  <a class="btn-streamlit" href="#" target="_blank">
+    <i class="ti ti-device-desktop-analytics"></i>
+    Acessar Dashboard Streamlit
+  </a>
+</div>
+
+<div class="section">
+
+  <p class="section-title">Sobre o projeto</p>
+  <div class="card">
+    <p style="font-size:15px; color:#555; line-height:1.7;">
+      Este projeto apresenta uma análise exploratória dos preços de cinco combustíveis — Gasolina, Diesel, Etanol, GNV e GLP — em 20 estados brasileiros entre 2015 e 2024. A proposta é demonstrar um fluxo completo de projeto analítico: preparação dos dados, análise exploratória, criação de indicadores, visualizações e publicação em ambiente web.
+    </p>
+  </div>
+
+  <p class="section-title" style="margin-top:2rem;">Perguntas orientadoras</p>
+  <ul class="perguntas">
+    <li>Quais estados possuem combustíveis mais caros?</li>
+    <li>Qual combustível apresentou maior aumento entre 2015 e 2024?</li>
+    <li>Existem diferenças regionais relevantes nos preços?</li>
+    <li>Há períodos de maior instabilidade nos preços?</li>
+    <li>Como os preços evoluíram ao longo do tempo?</li>
+    <li>Existe relação entre inflação e preços dos combustíveis?</li>
+  </ul>
+
+  <p class="section-title" style="margin-top:2rem;">Indicadores analisados (KPIs)</p>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-icon"><i class="ti ti-currency-real"></i></div>
+      <div class="kpi-label">Preço médio nacional</div>
+      <div class="kpi-value">R$/litro</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon"><i class="ti ti-flame"></i></div>
+      <div class="kpi-label">Combustível mais caro</div>
+      <div class="kpi-value">Ranking</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon"><i class="ti ti-map-pin"></i></div>
+      <div class="kpi-label">Estado com maior preço</div>
+      <div class="kpi-value">Por UF</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon"><i class="ti ti-trending-up"></i></div>
+      <div class="kpi-label">Maior variação mensal</div>
+      <div class="kpi-value">Oscilação %</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon"><i class="ti ti-droplet"></i></div>
+      <div class="kpi-label">Consumo estimado total</div>
+      <div class="kpi-value">Em litros</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-icon"><i class="ti ti-map"></i></div>
+      <div class="kpi-label">Região mais cara</div>
+      <div class="kpi-value">Por região</div>
+    </div>
+  </div>
+
+  <p class="section-title" style="margin-top:2rem;">Visualizações geradas</p>
+  <div class="viz-grid">
+    <div class="viz-card">
+      <i class="ti ti-chart-line viz-icon"></i>
+      <div>
+        <div class="viz-title">Linha temporal</div>
+        <div class="viz-desc">Evolução do preço médio por combustível entre 2015 e 2024.</div>
+      </div>
+    </div>
+    <div class="viz-card">
+      <i class="ti ti-chart-bar viz-icon"></i>
+      <div>
+        <div class="viz-title">Barras por estado</div>
+        <div class="viz-desc">Comparação do preço médio entre os estados brasileiros.</div>
+      </div>
+    </div>
+    <div class="viz-card">
+      <i class="ti ti-gas-station viz-icon"></i>
+      <div>
+        <div class="viz-title">Barras por combustível</div>
+        <div class="viz-desc">Comparação energética entre os tipos de combustível.</div>
+      </div>
+    </div>
+    <div class="viz-card">
+      <i class="ti ti-layout-grid viz-icon"></i>
+      <div>
+        <div class="viz-title">Heatmap mensal</div>
+        <div class="viz-desc">Mapa de calor com preço médio por mês e ano.</div>
+      </div>
+    </div>
+    <div class="viz-card">
+      <i class="ti ti-chart-dots viz-icon"></i>
+      <div>
+        <div class="viz-title">Dispersão inflação x preço</div>
+        <div class="viz-desc">Correlação entre índice de inflação e preço dos combustíveis.</div>
+      </div>
+    </div>
+    <div class="viz-card">
+      <i class="ti ti-table viz-icon"></i>
+      <div>
+        <div class="viz-title">Tabela dinâmica</div>
+        <div class="viz-desc">Exploração detalhada por região, combustível e ano.</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title" style="margin-top:2rem;">Tecnologias utilizadas</p>
+  <div class="tech-grid">
+    <div class="tech-item"><i class="ti ti-brand-python" style="font-size:22px;"></i><div class="tech-name">Python</div><div class="tech-desc">Linguagem principal</div></div>
+    <div class="tech-item"><i class="ti ti-table" style="font-size:22px;"></i><div class="tech-name">Pandas</div><div class="tech-desc">Manipulação de dados</div></div>
+    <div class="tech-item"><i class="ti ti-chart-line" style="font-size:22px;"></i><div class="tech-name">Matplotlib</div><div class="tech-desc">Visualizações estáticas</div></div>
+    <div class="tech-item"><i class="ti ti-chart-bar" style="font-size:22px;"></i><div class="tech-name">Seaborn</div><div class="tech-desc">Visualizações estatísticas</div></div>
+    <div class="tech-item"><i class="ti ti-chart-dots" style="font-size:22px;"></i><div class="tech-name">Plotly</div><div class="tech-desc">Gráficos interativos</div></div>
+    <div class="tech-item"><i class="ti ti-math" style="font-size:22px;"></i><div class="tech-name">NumPy</div><div class="tech-desc">Cálculos numéricos</div></div>
+  </div>
+
+  <p class="section-title" style="margin-top:2rem;">Arquivos do projeto</p>
+  <div class="card">
+    <p style="font-size:14px; color:#777; margin-bottom:1rem;">Acesse os principais componentes do projeto:</p>
+    <div class="links-row">
+      <a class="link-btn" href="https://github.com/LucasMuniz2005/analise-precos-combustiveis-brasil" target="_blank">
+        <i class="ti ti-brand-github"></i> Ver README
+      </a>
+      <a class="link-btn" href="https://github.com/LucasMuniz2005/analise-precos-combustiveis-brasil/blob/main/Liguagem_ProjetoFinal.ipynb" target="_blank">
+        <i class="ti ti-notebook"></i> Ver Notebook
+      </a>
+      <a class="link-btn" href="https://github.com/LucasMuniz2005/analise-precos-combustiveis-brasil/raw/main/dados/simulacao_precos_combustiveis_brasil.csv" target="_blank">
+        <i class="ti ti-download"></i> Baixar Base de Dados
+      </a>
+    </div>
+  </div>
+
+  <p class="section-title" style="margin-top:2rem;">Objetivo pedagógico</p>
+  <div class="card">
+    <p style="font-size:15px; color:#555; line-height:1.7; margin-bottom:0.75rem;">
+      Este projeto serve como referência para a avaliação G2 da disciplina, demonstrando como transformar uma base de dados em um produto analítico completo, organizado e publicável.
+    </p>
+    <p style="font-size:15px; color:#555; line-height:1.7;">
+      Mais importante do que criar gráficos é responder perguntas relevantes e apoiar a tomada de decisão com base em dados.
+    </p>
+  </div>
+
+</div>
+
+<div class="footer">
+  Projeto desenvolvido para fins educacionais — Linguagem de Programação | Sistemas de Informação<br>
+  <span style="margin-top:4px; display:inline-block;">Lucas Muniz Miranda &amp; Thiago Matheus — Grupo 11</span>
+</div>
+
+</body>
+</html>
